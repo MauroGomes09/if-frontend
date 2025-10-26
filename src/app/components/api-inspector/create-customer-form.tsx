@@ -22,8 +22,6 @@ import {
 } from "@/components/ui/card";
 import { UserPlus, Send } from "lucide-react";
 
-const API_BASE_URL = "https://api-if-beige.vercel.app";
-
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
   cpf: z.string().regex(/^\d{11}$/, { message: "CPF must be 11 digits." }),
@@ -46,7 +44,7 @@ export function CreateCustomerForm({ onApiCall }: CreateCustomerFormProps) {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const apiCall = async () => {
-      const response = await fetch(`${API_BASE_URL}/customers`, {
+      const response = await fetch(`/proxy/customers`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),

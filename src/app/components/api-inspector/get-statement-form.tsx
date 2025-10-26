@@ -22,8 +22,6 @@ import {
 } from "@/components/ui/card";
 import { FileText, Send } from "lucide-react";
 
-const API_BASE_URL = "https://api-if-beige.vercel.app";
-
 const formSchema = z.object({
   accountId: z.string().min(1, { message: "Account ID is required." }),
 });
@@ -43,7 +41,7 @@ export function GetStatementForm({ onApiCall }: GetStatementFormProps) {
   function onSubmit(values: z.infer<typeof formSchema>) {
     const apiCall = async () => {
       const response = await fetch(
-        `${API_BASE_URL}/transactions/${values.accountId}`
+        `/proxy/transactions/${values.accountId}`
       );
       if (!response.ok) {
         const errorData = await response

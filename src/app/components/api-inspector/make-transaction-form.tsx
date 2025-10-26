@@ -29,8 +29,6 @@ import {
 } from "@/components/ui/card";
 import { ArrowRightLeft, Send } from "lucide-react";
 
-const API_BASE_URL = "https://api-if-beige.vercel.app";
-
 const formSchema = z.object({
   accountId: z.string().min(1, { message: "Account ID is required." }),
   description: z.string().min(1, { message: "Description is required." }),
@@ -49,12 +47,13 @@ export function MakeTransactionForm({ onApiCall }: MakeTransactionFormProps) {
       accountId: "",
       description: "",
       type: "credit",
+      amount: 0,
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const apiCall = async () => {
-      const response = await fetch(`${API_BASE_URL}/transactions`, {
+      const response = await fetch(`/proxy/transactions`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),

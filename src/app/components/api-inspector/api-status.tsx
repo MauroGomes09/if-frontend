@@ -10,8 +10,6 @@ import {
 } from "@/components/ui/card";
 import { Power, Send } from "lucide-react";
 
-const API_BASE_URL = "https://api-if-beige.vercel.app";
-
 type ApiStatusProps = {
   onApiCall: (apiCall: () => Promise<any>) => void;
 };
@@ -19,7 +17,7 @@ type ApiStatusProps = {
 export function ApiStatus({ onApiCall }: ApiStatusProps) {
   const checkStatus = () => {
     const apiCall = async () => {
-      const response = await fetch(`${API_BASE_URL}/`);
+      const response = await fetch("/proxy/");
       if (!response.ok) {
         const errorData = await response
           .json()

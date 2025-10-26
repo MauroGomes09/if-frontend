@@ -22,8 +22,6 @@ import {
 } from "@/components/ui/card";
 import { Wallet, Send } from "lucide-react";
 
-const API_BASE_URL = "https://api-if-beige.vercel.app";
-
 const formSchema = z.object({
   accountId: z.string().min(1, { message: "Account ID is required." }),
 });
@@ -41,10 +39,9 @@ export function CheckBalanceForm({ onApiCall }: CheckBalanceFormProps) {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    const { accountId } = values;
     const apiCall = async () => {
-      const response = await fetch(
-        `${API_BASE_URL}/accounts/${values.accountId}/balance`
-      );
+      const response = await fetch(`/proxy/accounts/${accountId}/balance`);
       if (!response.ok) {
         const errorData = await response
           .json()

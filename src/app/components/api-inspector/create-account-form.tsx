@@ -29,8 +29,6 @@ import {
 } from "@/components/ui/card";
 import { Landmark, Send } from "lucide-react";
 
-const API_BASE_URL = "https://api-if-beige.vercel.app";
-
 const formSchema = z.object({
   customerId: z.string().min(1, { message: "Customer ID is required." }),
   branch: z.string().min(1, { message: "Branch is required." }),
@@ -55,7 +53,7 @@ export function CreateAccountForm({ onApiCall }: CreateAccountFormProps) {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const apiCall = async () => {
-      const response = await fetch(`${API_BASE_URL}/accounts`, {
+      const response = await fetch(`/proxy/accounts`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
