@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import 'dotenv/config';
 
-const API_URL = process.env.API_URL || 'https//api-if-mauro-gomes.vercel.app';
+const API_URL = process.env.API_URL || 'https://api-if-mauro-gomes.vercel.app';
 
 async function handler(req: NextRequest) {
   try {
